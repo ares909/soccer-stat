@@ -35,7 +35,9 @@
     "no-console": "warn",
     "no-eval": "error",
     "import/first": "error",
+    "no-unused-vars": "warn",
     "prefer-template": 1,
+    "react/prop-types": "off",
     "no-param-reassign": [
       2,
       {

@@ -9,7 +9,7 @@ function App() {
             <div className="App">
                 <Switch>
                     <Route exact path="/" render={() => <CompList />} />
-                    <Route exact path="/competition/:id" component={SingleCompetition} />
+                    <Route exact path="/competitions/:competitionId" component={SingleCompetition} />
                 </Switch>
             </div>
         </Router>

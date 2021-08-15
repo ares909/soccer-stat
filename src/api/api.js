@@ -16,3 +16,24 @@ export const getCompetitions = () => {
         // credentials: "include",
     }).then(onError);
 };
+
+export const getCompetition = (competitionId) => {
+    return fetch(`${BASE_URL}competitions/${competitionId}`, {
+        headers,
+        // credentials: "include",
+    }).then(onError);
+};
+
+export const getSchedule = (competitionId) => {
+    return fetch(`${BASE_URL}competitions/${competitionId}/matches`, {
+        headers,
+        // credentials: "include",
+    }).then(onError);
+};
+
+export const getTeams = (competitionId) => {
+    return fetch(`${BASE_URL}competitions/${competitionId}/teams`, {
+        headers,
+        // credentials: "include",
+    }).then(onError);
+};

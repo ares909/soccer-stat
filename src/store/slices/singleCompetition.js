@@ -2,13 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../api/api";
 
 const initialState = {
-    competitions: [],
+    competition: {},
     status: "idle",
     error: null,
 };
 
-export const fetchCompetitions = createAsyncThunk("competitions/fetchCompetitions", async () => {
-    return api.getCompetitions();
+export const fetchCompetition = createAsyncThunk("competition/singleCompetitionsSlice", async (competitionId) => {
+    return api.getTeams(competitionId);
     // .then((competitions) => {
     //     return competitions;
     // })
@@ -17,24 +17,24 @@ export const fetchCompetitions = createAsyncThunk("competitions/fetchCompetition
     // });
 });
 
-export const competitionsSlice = createSlice({
-    name: "competitions",
+export const singleCompetitionsSlice = createSlice({
+    name: "competition",
     initialState,
     reducers: {},
     extraReducers: {
-        [fetchCompetitions.pending]: (state) => {
+        [fetchCompetition.pending]: (state) => {
             state.status = "loading";
         },
-        [fetchCompetitions.fulfilled]: (state, action) => {
+        [fetchCompetition.fulfilled]: (state, action) => {
             state.status = "succeeded";
             // Here I filter only tier 1 to display due to 154 competitions
-            const filteredCompetitions = action.payload.competitions.filter((competition) => {
-                return competition.plan === "TIER_ONE" ? competition : "";
-            });
+            // const filteredCompetitions = action.payload.competitions.filter((competition) => {
+            //     return competition.plan === "TIER_ONE" ? competition : "";
+            // });
 
-            state.competitions = filteredCompetitions;
+            state.competition = action.payload.competition;
         },
-        [fetchCompetitions.rejected]: (state, action) => {
+        [fetchCompetition.rejected]: (state, action) => {
             state.status = "failed";
             state.error = action.error.message;
         },
@@ -43,4 +43,4 @@ export const competitionsSlice = createSlice({
 
 // export const allCompetitions = (state) => state.competitions.competitions;
 
-export default competitionsSlice.reducer;
+export default singleCompetitionsSlice.reducer;
