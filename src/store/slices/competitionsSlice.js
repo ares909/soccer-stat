@@ -27,7 +27,11 @@ export const competitionsSlice = createSlice({
         },
         [fetchCompetitions.fulfilled]: (state, action) => {
             state.status = "succeeded";
-            // Add any fetched posts to the array
+            // Here I filter only tier 1 to display due to 154 competitions
+            // const filteredCompetitions = action.payload.competitions.filter((competition) => {
+            //     return competition.plan === "TIER_ONE" ? competition : "";
+            // });
+
             state.competitions = state.competitions.concat(action.payload.competitions);
         },
         [fetchCompetitions.rejected]: (state, action) => {

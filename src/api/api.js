@@ -2,7 +2,7 @@ export const onError = (res) => {
     if (res.ok) {
         return res.json();
     }
-    return Promise.reject("Произошла ошибка");
+    return Promise.reject(new Error("Произошла ошибка"));
 };
 
 const BASE_URL = "http://api.football-data.org/v2/";
@@ -12,7 +12,7 @@ const headers = {
 
 export const getCompetitions = () => {
     return fetch(`${BASE_URL}competitions`, {
-        headers: headers,
+        headers,
         // credentials: "include",
     }).then(onError);
 };

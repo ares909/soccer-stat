@@ -17,17 +17,19 @@ function CompList() {
         }
     }, [competitionsStatus, dispatch]);
 
+    let content;
+
+    if (competitionsStatus === "loading") {
+        content = <div className="loader">Loading...</div>;
+    } else if (competitionsStatus === "succeeded") {
+        content = competitions.map((competition) => <Comptetition key={competition.id} competition={competition} />);
+    } else if (competitionsStatus === "failed") {
+        content = <div>{error}</div>;
+    }
+
     return (
         <section className="complist">
-            <ul className="complist__container">
-                {competitionsStatus === "loading" ? (
-                    <div>Loading...</div>
-                ) : competitionsStatus === "error" ? (
-                    <div>{error}</div>
-                ) : (
-                    competitions.map((competition) => <Comptetition key={competition.id} competition={competition} />)
-                )}
-            </ul>
+            <ul className="complist__container">{content}</ul>
         </section>
     );
 }

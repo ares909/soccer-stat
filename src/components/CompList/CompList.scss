@@ -6,19 +6,21 @@
     &__container {
         padding: 0 30px 0;
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         align-items: center;
-        justify-content: center;
         gap: 20px 15px;
     }
 
     &__item {
         padding: 10px 5px 10px;
+        height: 260px;
         align-self: center;
+        justify-content: space-between;
         display: flex;
         flex-direction: column;
         border: thin solid plum;
         border-bottom: thick solid plum;
+        color: grey;
     }
 
     &__item-image {
@@ -31,7 +33,7 @@
         font-size: 18px;
         line-height: 22px;
         margin: 20px auto 0;
-        color: grey;
+        text-align: center;
     }
 
     &__item-country {
@@ -39,6 +41,6 @@
         font-size: 16px;
         line-height: 20px;
         margin: 10px auto 0;
-        color: grey;
+        text-align: center;
     }
 }

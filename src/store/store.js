@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import competitionReducer from "../store/slices/competitionsSlice";
+import competitionReducer from "./slices/competitionsSlice";
 
-export const store = configureStore({
+const store = configureStore({
     reducer: {
         competitions: competitionReducer,
     },
 });
+
+export default store;
