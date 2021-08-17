@@ -25,7 +25,7 @@ export const getCompetition = (competitionId) => {
 };
 
 export const getSchedule = (competitionId) => {
-    return fetch(`${BASE_URL}competitions/${competitionId}/matches`, {
+    return fetch(`${BASE_URL}competitions/${competitionId}/standings`, {
         headers,
         // credentials: "include",
     }).then(onError);
@@ -33,6 +33,13 @@ export const getSchedule = (competitionId) => {
 
 export const getTeams = (competitionId) => {
     return fetch(`${BASE_URL}competitions/${competitionId}/teams`, {
+        headers,
+        // credentials: "include",
+    }).then(onError);
+};
+
+export const getMatches = (competitionId) => {
+    return fetch(`${BASE_URL}competitions/${competitionId}/matches`, {
         headers,
         // credentials: "include",
     }).then(onError);

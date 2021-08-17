@@ -1,0 +1,7 @@
+.single-competition {
+    display: flex;
+    flex-direction: column;
+    &__title {
+        font-weight: 900;
+    }
+}
