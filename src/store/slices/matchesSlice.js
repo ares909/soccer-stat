@@ -7,8 +7,8 @@ const initialState = {
     error: null,
 };
 
-export const fetchMatches = createAsyncThunk("matches/matchesSlice", async (competitionId) => {
-    return api.getMatches(competitionId);
+export const fetchMatches = createAsyncThunk("matches/matchesSlice", ({ competitionId, dateFrom, dateTo }) => {
+    return api.getMatches({ competitionId, dateFrom, dateTo });
 });
 
 // export const fetchTeams = createAsyncThunk("competition/singleCompetitionsSlice", async (competitionId) => {
@@ -18,7 +18,11 @@ export const fetchMatches = createAsyncThunk("matches/matchesSlice", async (comp
 export const matchesSlice = createSlice({
     name: "matches",
     initialState,
-    reducers: {},
+    reducers: {
+        applyFilter: (state) => {
+            state.status = "filtered";
+        },
+    },
     extraReducers: {
         [fetchMatches.pending]: (state) => {
             state.status = "loading";
@@ -58,5 +62,7 @@ export const matchesSlice = createSlice({
 });
 
 // export const allCompetitions = (state) => state.competitions.competitions;
+
+export const { applyFilter } = matchesSlice.actions;
 
 export default matchesSlice.reducer;

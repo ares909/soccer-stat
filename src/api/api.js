@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const onError = (res) => {
     if (res.ok) {
         return res.json();
@@ -10,11 +12,25 @@ const headers = {
     "X-Auth-Token": process.env.REACT_APP_API_TOKEN,
 };
 
-export const getCompetitions = () => {
-    return fetch(`${BASE_URL}competitions`, {
-        headers,
-        // credentials: "include",
-    }).then(onError);
+// export const getCompetitions = (plan = "TIER_ONE") => {
+//     return fetch(`${BASE_URL}competitions?${plan}`, {
+//         headers,
+//         // credentials: "include",
+//     }).then(onError);
+// };
+
+export const getCompetitions = async (plan = "TIER_ONE") => {
+    try {
+        const response = await axios.get(`${BASE_URL}competitions`, {
+            headers,
+            params: {
+                plan,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        return new Error("Произошла ошибка");
+    }
 };
 
 export const getCompetition = (competitionId) => {
@@ -38,9 +54,17 @@ export const getTeams = (competitionId) => {
     }).then(onError);
 };
 
-export const getMatches = (competitionId) => {
-    return fetch(`${BASE_URL}competitions/${competitionId}/matches`, {
-        headers,
-        // credentials: "include",
-    }).then(onError);
+export const getMatches = async ({ competitionId, dateFrom, dateTo }) => {
+    try {
+        const response = await axios.get(`${BASE_URL}competitions/${competitionId}/matches`, {
+            headers,
+            params: {
+                dateFrom,
+                dateTo,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        return new Error("Произошла ошибка");
+    }
 };

@@ -1,9 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTeams } from "../../store/slices/teamsSlice";
+import SearchBar from "../SearchBar/SearchBar.jsx";
 
 function TeamList({ match }) {
+    const [filter, setFilter] = useState();
+    const [filteredData, setFilteredData] = useState();
+
     const history = useHistory();
 
     const goBack = () => {
@@ -23,6 +27,7 @@ function TeamList({ match }) {
 
     return (
         <section>
+            <SearchBar filter={filter} setFilter={setFilter}></SearchBar>
             <table className="table table-striped" data-testid="leaderboard-table">
                 <thead>
                     <tr key="head">

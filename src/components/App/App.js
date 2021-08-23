@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import CompList from "../CompList/CompList";
+import CompList from "../CompList/CompList.jsx";
 import Matches from "../Matches/Matches";
 import SingleCompetition from "../SingleCompetition/SingleCompetition";
 import Standings from "../Standings/Standings";

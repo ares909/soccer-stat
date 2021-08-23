@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchMatches } from "../../store/slices/matchesSlice";
+import { fetchMatches, applyFilter } from "../../store/slices/matchesSlice";
+import DatePicker from "../UI/DatePicker/DatePicker.jsx";
 
 function Matches({ match }) {
     const history = useHistory();
@@ -14,15 +15,23 @@ function Matches({ match }) {
     const matches = useSelector((state) => state.matches.matches);
     const competitionStatus = useSelector((state) => state.matches.status);
     const error = useSelector((state) => state.matches.error);
+    const [filter, setFilter] = useState({ dateFrom: "", dateTo: "" });
 
     useEffect(() => {
         if (competitionStatus === "idle") {
-            dispatch(fetchMatches(competitionId));
+            dispatch(fetchMatches({ competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
         }
-    }, [competitionStatus, dispatch]);
+    }, [dispatch, competitionStatus, competitionId]);
+
+    function filterMatches(e) {
+        e.preventDefault();
+        dispatch(applyFilter());
+        dispatch(fetchMatches({ competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
+    }
 
     return (
         <section>
+            <DatePicker filter={filter} setFilter={setFilter} filterMatches={filterMatches}></DatePicker>
             <table className="table table-striped" data-testid="leaderboard-table">
                 <thead>
                     <tr key="head">

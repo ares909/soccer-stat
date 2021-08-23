@@ -1,13 +1,15 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
 import * as api from "../../api/api";
 
-const initialState = {
+const compAdapter = createEntityAdapter();
+
+const initialState = compAdapter.getInitialState({
     competitions: [],
     status: "idle",
     error: null,
-};
+});
 
-export const fetchCompetitions = createAsyncThunk("competitions/fetchCompetitions", async () => {
+export const fetchCompetitions = createAsyncThunk("competitions/fetchCompetitions", () => {
     return api.getCompetitions();
     // .then((competitions) => {
     //     return competitions;
@@ -28,11 +30,11 @@ export const competitionsSlice = createSlice({
         [fetchCompetitions.fulfilled]: (state, action) => {
             state.status = "succeeded";
             // Here I filter only tier 1 to display due to 154 competitions
-            const filteredCompetitions = action.payload.competitions.filter((competition) => {
-                return competition.plan === "TIER_ONE" ? competition : "";
-            });
+            // const filteredCompetitions = action.payload.competitions.filter((competition) => {
+            //     return competition.plan === "TIER_ONE" ? competition : "";
+            // });
 
-            state.competitions = filteredCompetitions;
+            compAdapter.upsertMany(state, action.payload.competitions);
         },
         [fetchCompetitions.rejected]: (state, action) => {
             state.status = "failed";
@@ -41,6 +43,12 @@ export const competitionsSlice = createSlice({
     },
 });
 
-// export const allCompetitions = (state) => state.competitions.competitions;
+export const { clearStatus } = competitionsSlice.actions;
 
 export default competitionsSlice.reducer;
+
+export const {
+    selectAll: selectAllComps,
+    selectById: selectCompById,
+    selectIds: selectCompIds,
+} = compAdapter.getSelectors((state) => state.competitions);
