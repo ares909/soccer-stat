@@ -2,7 +2,7 @@ import React from "react";
 
 function Button(props) {
     return (
-        <button {...props} className="input">
+        <button {...props} className="search-bar__button">
             Найти
         </button>
     );

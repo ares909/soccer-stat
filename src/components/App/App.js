@@ -4,6 +4,7 @@ import CompList from "../CompList/CompList.jsx";
 import Matches from "../Matches/Matches";
 import SingleCompetition from "../SingleCompetition/SingleCompetition";
 import Standings from "../Standings/Standings";
+import TeamCalendar from "../TeamCalendar/TeamCalendar.jsx";
 import TeamList from "../TeamList/TeamList";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
                     <Route exact path="/competitions/:competitionId/teams" component={TeamList} />
                     <Route exact path="/competitions/:competitionId/standings" component={Standings} />
                     <Route exact path="/competitions/:competitionId/matches" component={Matches} />
+                    <Route exact path="/teams/:teamId/matches" component={TeamCalendar} />
                 </Switch>
             </div>
         </Router>

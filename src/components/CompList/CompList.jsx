@@ -3,16 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import Comptetition from "../Competition/Competition";
 import { fetchCompetitions, selectAllComps, selectCompById, selectCompIds } from "../../store/slices/competitionsSlice";
 import SearchBar from "../SearchBar/SearchBar.jsx";
+import Header from "../Header/Header.jsx";
 
 function CompList() {
     const dispatch = useDispatch();
-    const competitions = useSelector(selectCompIds);
+    const competitions = useSelector((state) => state.competitions.competitions);
     const competitionsStatus = useSelector((state) => state.competitions.status);
     const error = useSelector((state) => state.competitions.error);
     const [filter, setFilter] = useState();
     const [filteredData, setFilteredData] = useState();
-
-    // console.log(competitions);
 
     useEffect(() => {
         if (competitionsStatus === "idle") {
@@ -41,8 +40,8 @@ function CompList() {
         content = <div className="loader">Loading...</div>;
     } else if (competitionsStatus === "succeeded") {
         const filteredCompetitions = filteredList();
-        content = filteredCompetitions.map((competitionId) => (
-            <Comptetition key={competitionId} competitionId={competitionId} />
+        content = filteredCompetitions.map((competition) => (
+            <Comptetition key={competition.id} competition={competition} />
         ));
     } else if (competitionsStatus === "failed") {
         content = <div>{error}</div>;
@@ -50,7 +49,13 @@ function CompList() {
 
     return (
         <section className="complist">
-            <SearchBar filter={filter} setFilter={setFilter} getFilteredList={getFilteredList}></SearchBar>
+            <Header></Header>
+            <div className="complist__title-bar">
+                {" "}
+                <h1 className="complist__title">Список соревнований</h1>{" "}
+                <SearchBar filter={filter} setFilter={setFilter} getFilteredList={getFilteredList}></SearchBar>
+            </div>
+
             <ul className="complist__container">{content}</ul>
         </section>
     );

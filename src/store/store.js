@@ -4,6 +4,7 @@ import singleCompetitionReducer from "./slices/singleCompetitionSlice";
 import teamsReducer from "./slices/teamsSlice";
 import standingsReducer from "./slices/standingsSlice";
 import matchesReducer from "./slices/matchesSlice";
+import singleTeamReducer from "./slices/singleTeamSlice";
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         teams: teamsReducer,
         standings: standingsReducer,
         matches: matchesReducer,
+        team: singleTeamReducer,
     },
 });
 

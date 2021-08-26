@@ -68,3 +68,18 @@ export const getMatches = async ({ competitionId, dateFrom, dateTo }) => {
         return new Error("Произошла ошибка");
     }
 };
+
+export const getTeamMatches = async ({ teamId, dateFrom, dateTo }) => {
+    try {
+        const response = await axios.get(`${BASE_URL}teams/${teamId}/matches`, {
+            headers,
+            params: {
+                dateFrom,
+                dateTo,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        return new Error("Произошла ошибка");
+    }
+};

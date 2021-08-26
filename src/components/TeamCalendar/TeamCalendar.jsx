@@ -1,31 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchMatches, applyFilter } from "../../store/slices/matchesSlice";
+import { fetchSingleTeam } from "../../store/slices/singleTeamSlice";
 import DatePicker from "../UI/DatePicker/DatePicker.jsx";
 
-function Matches({ match }) {
-    const history = useHistory();
-
-    const goBack = () => {
-        history.goBack();
-    };
-    const { competitionId } = match.params;
+function TeamCalendar({ match }) {
+    const { teamId } = match.params;
     const dispatch = useDispatch();
-    const matches = useSelector((state) => state.matches.matches);
-    const competitionStatus = useSelector((state) => state.matches.status);
-    const error = useSelector((state) => state.matches.error);
+    const matches = useSelector((state) => state.team.calendar);
     const [filter, setFilter] = useState({ dateFrom: "", dateTo: "" });
+    const [filteredData, setFilteredData] = useState();
 
     useEffect(() => {
-        dispatch(fetchMatches({ competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
-    }, [dispatch, competitionId]);
+        dispatch(fetchSingleTeam({ teamId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
+        console.log(matches);
+    }, [dispatch]);
 
     function filterMatches(e) {
         e.preventDefault();
-        dispatch(fetchMatches({ competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
+        dispatch(fetchSingleTeam({ teamId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
     }
-
     return (
         <section>
             <DatePicker filter={filter} setFilter={setFilter} filterMatches={filterMatches}></DatePicker>
@@ -63,5 +57,4 @@ function Matches({ match }) {
         </section>
     );
 }
-
-export default Matches;
+export default TeamCalendar;

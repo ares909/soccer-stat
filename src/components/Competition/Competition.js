@@ -1,15 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import logo from "../../images/logo_cl.png";
-import { fetchCompetitions, selectAllComps, selectCompById, selectCompIds } from "../../store/slices/competitionsSlice";
 
-function Comptetition({ competitionId }) {
-    const competition = useSelector((state) => selectCompById(state, competitionId));
+function Comptetition({ competition }) {
     return (
-        <NavLink to={`/competitions/${competitionId}`}>
+        <NavLink className="complist__link" to={`/competitions/${competition.id}`}>
             <li className="complist__item">
-                <img className="complist__item-image" src={logo} alt="item" />
+                <img
+                    className="complist__item-image"
+                    src={`${process.env.REACT_APP_PUBLIC_URL}/images/${competition.id}.png`}
+                    alt="item"
+                />
+
                 <p className="complist__item-name">{competition.name}</p>
                 <p className="complist__item-country">{competition.area.name}</p>
             </li>

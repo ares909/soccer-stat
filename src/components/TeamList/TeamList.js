@@ -3,6 +3,7 @@ import { NavLink, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTeams } from "../../store/slices/teamsSlice";
 import SearchBar from "../SearchBar/SearchBar.jsx";
+import { selectCompById } from "../../store/slices/competitionsSlice";
 
 function TeamList({ match }) {
     const [filter, setFilter] = useState();
@@ -40,7 +41,11 @@ function TeamList({ match }) {
                 <tbody>
                     {teams.map((team) => (
                         <tr key={team.id}>
-                            <td>{team.name}</td>
+                            <td>
+                                <Link exact to={`/teams/${team.id}/matches`}>
+                                    {team.name}
+                                </Link>
+                            </td>
                             <td>{team.tla}</td>
                             <td>{team.founded}</td>
                             <td>{team.venue}</td>

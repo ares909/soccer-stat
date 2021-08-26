@@ -34,7 +34,7 @@ export const competitionsSlice = createSlice({
             //     return competition.plan === "TIER_ONE" ? competition : "";
             // });
 
-            compAdapter.upsertMany(state, action.payload.competitions);
+            state.competitions = action.payload.competitions;
         },
         [fetchCompetitions.rejected]: (state, action) => {
             state.status = "failed";

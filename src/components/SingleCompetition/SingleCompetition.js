@@ -1,42 +1,45 @@
 import React, { useEffect } from "react";
 import { NavLink, useHistory, Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCompById } from "../../store/slices/competitionsSlice";
+import { fetchCompetition } from "../../store/slices/singleCompetitionSlice";
 
 function SingleCompetition({ match }) {
-    // const competitionStatus = useSelector((state) => state.competition.status);
-    // const competition = useSelector((state) => state.competition.competition);
+    const competitionStatus = useSelector((state) => state.competition.status);
+    const competition = useSelector((state) => state.competition.competition);
 
-    // const error = useSelector((state) => state.competitions.error);
+    const error = useSelector((state) => state.competitions.error);
     // // const goPrevPage = useSelector(goPrevPage);
     const { competitionId } = match.params;
-    const competition = useSelector((state) => selectCompById(state, competitionId));
+    // const competition = useSelector((state) => selectCompById(state, competitionId));
 
     const dispatch = useDispatch();
 
     const history = useHistory();
-    // useEffect(() => {
-    //     if (competitionStatus === "idle") {
-    //         dispatch(fetchCompetition(competitionId));
-    //     }
-    // }, [dispatch, competitionStatus]);
+    useEffect(() => {
+        dispatch(fetchCompetition(competitionId));
+    }, [dispatch]);
 
     const goBack = () => {
         history.goBack();
         // dispatch(goPrevPage());
     };
 
-    // let info;
+    let info;
 
-    // if (competitionStatus === "loading") {
-    //     info = <div className="loader">Loading...</div>;
-    // } else if (competitionStatus === "succeeded") {
-    //     info = (
-
-    //     );
-    // } else if (competitionStatus === "failed") {
-    //     info = <div>{error}</div>;
-    // }
+    if (competitionStatus === "loading") {
+        info = <div className="loader">Loading...</div>;
+    } else if (competitionStatus === "succeeded") {
+        info = (
+            <div>
+                <p>Competition info</p>
+                <p>Location: {competition.area.name}</p>
+                <p>Start-date: {competition.currentSeason.startDate}</p>
+                <p>End-date: {competition.currentSeason.endDate}</p>
+            </div>
+        );
+    } else if (competitionStatus === "failed") {
+        info = <div>{error}</div>;
+    }
 
     return (
         <section className="single-competition">
@@ -58,13 +61,7 @@ function SingleCompetition({ match }) {
                         Scorers
                     </NavLink>
                 </nav>
-                <div>
-                    {" "}
-                    <p>Competition info</p>
-                    <p>Location: {competition.area.name}</p>
-                    <p>Start-date: {competition.currentSeason.startDate}</p>
-                    <p>End-date: {competition.currentSeason.endDate}</p>
-                </div>
+                {info}
             </div>
         </section>
     );

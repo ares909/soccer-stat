@@ -16,10 +16,8 @@ function Standings({ match }) {
     const error = useSelector((state) => state.standings.error);
 
     useEffect(() => {
-        if (competitionStatus === "idle") {
-            dispatch(getSchedule(competitionId));
-        }
-    }, [competitionStatus, dispatch]);
+        dispatch(getSchedule(competitionId));
+    }, [dispatch]);
 
     return (
         <section>

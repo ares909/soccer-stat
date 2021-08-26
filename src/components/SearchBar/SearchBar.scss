@@ -1,0 +1,65 @@
+@mixin large-screen-text {
+    font-size: 18px;
+    line-height: 22px;
+}
+
+@mixin medium-screen-text {
+    font-size: 14px;
+    line-height: 19px;
+}
+
+@mixin small-screen-text {
+    font-size: 12px;
+    line-height: 17px;
+}
+
+@mixin hover() {
+    transition: opacity 0.1s ease 0s;
+    color: inherit;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    @media screen and (min-width: 320px) and (max-width: 520px) {
+        margin-right: auto;
+    }
+
+    &__input {
+        @include medium-screen-text();
+        padding: 5px;
+        margin-right: 10px;
+        outline-style: none;
+        border: none;
+        border-radius: 8px;
+        min-width: 250px;
+        border: 1.5px solid #aaaaaa;
+        @media screen and (min-width: 320px) and (max-width: 1279px) {
+            @include small-screen-text();
+            padding: 2px;
+        }
+        @media screen and (min-width: 320px) and (max-width: 520px) {
+            min-width: 220px;
+        }
+    }
+
+    &__button {
+        @include hover();
+        @include medium-screen-text();
+        text-align: center;
+        padding: 7px 10px 7px;
+        cursor: pointer;
+        border: none;
+        background-color: rgba(54, 11, 122, 1);
+        color: white;
+        border-radius: 10px;
+        @media screen and (min-width: 320px) and (max-width: 1279px) {
+            @include small-screen-text();
+            padding: 5px 8px 5px;
+        }
+    }
+}
