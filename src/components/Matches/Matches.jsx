@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useHistory, Link } from "react-router-dom";
+import { NavLink, useHistory, Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMatches, applyFilter } from "../../store/slices/matchesSlice";
 import DatePicker from "../UI/DatePicker/DatePicker.jsx";
 import Header from "../Header/Header.jsx";
 import Tablemobile from "../UI/table/Tablemobile.jsx";
+import AddButton from "../UI/button/AddButton.jsx";
 
 function Matches({ match }) {
     const history = useHistory();
@@ -12,36 +13,51 @@ function Matches({ match }) {
     const goBack = () => {
         history.goBack();
     };
-    const { competitionId } = match.params;
+    const params = useParams();
     const dispatch = useDispatch();
     const matches = useSelector((state) => state.matches.matches);
     const competition = useSelector((state) => state.matches.competition);
     const competitionStatus = useSelector((state) => state.matches.status);
     const error = useSelector((state) => state.matches.error);
-    const [filter, setFilter] = useState({ dateFrom: "", dateTo: "" });
+    const [filter, setFilter] = useState({ dateFrom: params.dateFrom || "", dateTo: params.dateTo || "" });
+    const [limit, setLimit] = useState(10);
 
     useEffect(() => {
-        dispatch(fetchMatches({ competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
-    }, [dispatch, competitionId]);
+        dispatch(
+            fetchMatches({ competitionId: params.competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }),
+        );
+    }, [dispatch]);
 
     function filterMatches(e) {
         e.preventDefault();
-        dispatch(fetchMatches({ competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
+        dispatch(
+            fetchMatches({ competitionId: params.competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }),
+            history.push(`/competitions/${params.competitionId}/matches/${filter.dateFrom}/${filter.dateTo}`),
+        );
     }
 
     function formatDate(date) {
-        const format = new Date(Date.parse(date)).toISOString().slice(0, 10);
+        const format = new Date(Date.parse(date)).toLocaleString().slice(0, 10);
         return format;
     }
 
+    function addLimit(num) {
+        setLimit(num + 10);
+    }
+
     return (
-        <section>
-            <Header competition={competition} competitionId={competitionId}></Header>
+        <section className="table">
+            <Header
+                competition={competition}
+                competitionId={params.competitionId}
+                dateFrom={filter.dateFrom}
+                dateTo={filter.dateTo}
+            ></Header>
             <div className="table__container">
                 <DatePicker filter={filter} setFilter={setFilter} filterMatches={filterMatches}></DatePicker>
             </div>
 
-            <table className="table table_disabled">
+            <table className="table__section table__section_disabled">
                 <thead className="table__head">
                     <tr className="table__label">
                         <th>Дата</th>
@@ -57,7 +73,7 @@ function Matches({ match }) {
                     </tr>
                 </thead>
                 <tbody className="table__body">
-                    {matches.map((onematch) => (
+                    {matches.slice(0, limit).map((onematch) => (
                         <tr key={onematch.id}>
                             <td className="table__text">{formatDate(onematch.utcDate)}</td>
 
@@ -80,10 +96,17 @@ function Matches({ match }) {
                 </tbody>
             </table>
             <div className="table-mobile__container">
-                {matches.map((onematch) => (
+                {matches.slice(0, limit).map((onematch) => (
                     <Tablemobile key={onematch.id} onematch={onematch} />
                 ))}
             </div>
+            <AddButton
+                limit={limit}
+                length={matches.length}
+                onClick={() => {
+                    addLimit(limit);
+                }}
+            ></AddButton>
         </section>
     );
 }

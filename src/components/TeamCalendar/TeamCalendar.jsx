@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useHistory, Link } from "react-router-dom";
+import { NavLink, useHistory, Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSingleTeam } from "../../store/slices/singleTeamSlice";
 import DatePicker from "../UI/DatePicker/DatePicker.jsx";
@@ -7,29 +7,31 @@ import Header from "../Header/Header.jsx";
 import Tablemobile from "../UI/table/Tablemobile.jsx";
 
 function TeamCalendar({ match }) {
-    const { teamId } = match.params;
+    const history = useHistory();
+    const params = useParams();
     const dispatch = useDispatch();
     const matches = useSelector((state) => state.team.calendar);
-    const [filter, setFilter] = useState({ dateFrom: "", dateTo: "" });
+    const [filter, setFilter] = useState({ dateFrom: params.dateFrom || "", dateTo: params.dateTo || "" });
     const [filteredData, setFilteredData] = useState();
 
     useEffect(() => {
-        dispatch(fetchSingleTeam({ teamId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
+        dispatch(fetchSingleTeam({ teamId: params.teamId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
         console.log(matches);
     }, [dispatch]);
 
     function filterMatches(e) {
         e.preventDefault();
-        dispatch(fetchSingleTeam({ teamId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
+        dispatch(fetchSingleTeam({ teamId: params.teamId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
+        history.push(`/teams/${params.teamId}/matches/${filter.dateFrom}/${filter.dateTo}`);
     }
     function formatDate(date) {
-        const format = new Date(Date.parse(date)).toISOString().slice(0, 10);
+        const format = new Date(Date.parse(date)).toLocaleString().slice(0, 10);
         return format;
     }
 
     return (
         <section>
-            <Header teamId={teamId} />
+            <Header teamId={params.teamId} />
             <div className="table__container">
                 <DatePicker filter={filter} setFilter={setFilter} filterMatches={filterMatches}></DatePicker>
             </div>
@@ -56,7 +58,7 @@ function TeamCalendar({ match }) {
 
                             <td
                                 className={`table__text ${
-                                    onematch.homeTeam.id === Number(teamId) ? "table__text_chosen" : ""
+                                    onematch.homeTeam.id === Number(params.teamId) ? "table__text_chosen" : ""
                                 }`}
                             >
                                 {onematch.homeTeam.name}
@@ -64,7 +66,7 @@ function TeamCalendar({ match }) {
                             <td className="table__text">vs</td>
                             <td
                                 className={`table__text ${
-                                    onematch.awayTeam.id === Number(teamId) ? "table__text_chosen" : ""
+                                    onematch.awayTeam.id === Number(params.teamId) ? "table__text_chosen" : ""
                                 }`}
                             >
                                 {onematch.awayTeam.name}

@@ -657,6 +657,20 @@ template {
     padding: 5px 8px 5px;
   }
 }
+.search-bar__add-button {
+  margin: 10px 0 0;
+  align-self: center;
+  min-width: 60px;
+}
+@media screen and (min-width: 320px) and (max-width: 520px) {
+  .search-bar__add-button {
+    position: inherit;
+    width: 100%;
+  }
+}
+.search-bar__add-button_disabled {
+  display: none;
+}
 
 .navbar {
   display: flex;
@@ -699,18 +713,22 @@ template {
 }
 
 .table {
+  display: flex;
+  flex-direction: column;
+}
+.table__section {
   width: 50%;
   table-layout: auto;
   margin: 20px auto 0;
   border-collapse: collapse;
 }
 @media screen and (min-width: 320px) and (max-width: 1024px) {
-  .table {
+  .table__section {
     width: 80%;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 520px) {
-  .table_disabled {
+  .table__section_disabled {
     display: none;
   }
 }
@@ -868,7 +886,7 @@ th {
   max-width: 150px;
   border: 1.5px solid #aaaaaa;
 }
-@media screen and (min-width: 320px) and (max-width: 1279px) {
+@media screen and (min-width: 769px) and (max-width: 1279px) {
   .date-picker__input {
     font-size: 12px;
     line-height: 17px;
@@ -877,7 +895,9 @@ th {
 }
 @media screen and (min-width: 320px) and (max-width: 520px) {
   .date-picker__input {
-    width: 100px;
+    font-size: 10px;
+    line-height: 14px;
+    width: 90px;
   }
 }
 .date-picker__label {

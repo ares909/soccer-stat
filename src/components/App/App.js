@@ -14,10 +14,10 @@ function App() {
                 <Switch>
                     <Route exact path="/" render={() => <CompList />} />
                     {/* <Route exact path="/competitions/:competitionId" component={SingleCompetition} /> */}
-                    <Route exact path="/competitions/:competitionId/teams" component={TeamList} />
-                    <Route exact path="/competitions/:competitionId/standings" component={Standings} />
-                    <Route exact path="/competitions/:competitionId/matches" component={Matches} />
-                    <Route exact path="/teams/:teamId/matches" component={TeamCalendar} />
+                    <Route exact path="/competitions/:competitionId/teams/" component={TeamList} />
+                    <Route exact path="/competitions/:competitionId/standings/" component={Standings} />
+                    <Route exact path="/competitions/:competitionId/matches/:dateFrom?/:dateTo?" component={Matches} />
+                    <Route exact path="/teams/:teamId/matches/:dateFrom?/:dateTo?/:limit?" component={TeamCalendar} />
                 </Switch>
             </div>
         </Router>

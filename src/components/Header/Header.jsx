@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useHistory, Link, useLocation } from "react-router-dom";
 import Navbar from "../UI/navbar/Navbar.jsx";
 
-function Header({ competition, competitionId, teamId }) {
+function Header({ competition, competitionId, teamId, dateFrom, dateTo }) {
     const history = useHistory();
     const location = useLocation();
     const goBack = () => {
@@ -21,8 +21,8 @@ function Header({ competition, competitionId, teamId }) {
                 </Link>
                 <h1 className="header__title">{competition ? competition.name : "SoccerStat"}</h1>
             </div>
-            {competition ? <Navbar competitionId={competitionId}></Navbar> : ""}
-            {location.pathname === `/teams/${teamId}/matches` ? (
+            {competition ? <Navbar competitionId={competitionId} dateFrom={dateFrom} dateTo={dateTo}></Navbar> : ""}
+            {location.pathname.includes(`/teams/${teamId}/matches/`) ? (
                 <Link className="header__link navbar__link" onClick={() => goBack()}>
                     Назад
                 </Link>

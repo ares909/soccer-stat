@@ -26,17 +26,22 @@
 }
 
 .table {
-    width: 50%;
-    table-layout: auto;
-    margin: 20px auto 0;
-    border-collapse: collapse;
-    @media screen and (min-width: 320px) and (max-width: 1024px) {
-        width: 80%;
-    }
+    display: flex;
+    flex-direction: column;
+    
+    &__section {
+        width: 50%;
+        table-layout: auto;
+        margin: 20px auto 0;
+        border-collapse: collapse;
+        @media screen and (min-width: 320px) and (max-width: 1024px) {
+            width: 80%;
+        }
 
-    &_disabled {
-        @media screen and (min-width: 320px) and (max-width: 520px) {
-            display: none;
+        &_disabled {
+            @media screen and (min-width: 320px) and (max-width: 520px) {
+                display: none;
+            }
         }
     }
 

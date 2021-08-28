@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useHistory, Link } from "react-router-dom";
+import { NavLink, useHistory, Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTeams } from "../../store/slices/teamsSlice";
 import SearchBar from "../SearchBar/SearchBar.jsx";
-import { selectCompById } from "../../store/slices/competitionsSlice";
 import Header from "../Header/Header.jsx";
 
 function TeamList({ match }) {
@@ -15,7 +14,7 @@ function TeamList({ match }) {
     const goBack = () => {
         history.goBack();
     };
-    const { competitionId } = match.params;
+    const { competitionId } = useParams();
     const dispatch = useDispatch();
     const teams = useSelector((state) => state.teams.teams);
     const competition = useSelector((state) => state.teams.competition);
@@ -59,10 +58,10 @@ function TeamList({ match }) {
                     {filteredList().map((team) => (
                         <tr className="table__item" key={team.id}>
                             <td className="table__team">
-                                <Link className="table__link" exact to={`/teams/${team.id}/matches`}>
+                                <Link className="table__link" exact to={`/teams/${team.id}/matches/`}>
                                     <img className="table__image" src={team.crestUrl} />
                                 </Link>
-                                <Link className="table__link" exact to={`/teams/${team.id}/matches`}>
+                                <Link className="table__link" exact to={`/teams/${team.id}/matches/`}>
                                     {team.name}
                                 </Link>
                             </td>

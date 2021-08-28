@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink, useHistory, Link } from "react-router-dom";
+import { NavLink, useHistory, Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getSchedule } from "../../store/slices/standingsSlice";
 import Header from "../Header/Header.jsx";
@@ -10,7 +10,7 @@ function Standings({ match }) {
     const goBack = () => {
         history.goBack();
     };
-    const { competitionId } = match.params;
+    const { competitionId } = useParams();
     const dispatch = useDispatch();
     const standings = useSelector((state) => state.standings.standings);
     const competition = useSelector((state) => state.standings.competition);
@@ -42,10 +42,10 @@ function Standings({ match }) {
                             <td className="table__text">{team.position}</td>
                             <td className="table__team">
                                 {" "}
-                                <Link className="table__link" exact to={`/teams/${team.team.id}/matches`}>
+                                <Link className="table__link" exact to={`/teams/${team.team.id}/matches/`}>
                                     <img className="table__image" src={team.team.crestUrl} />
                                 </Link>
-                                <Link className="table__link" exact to={`/teams/${team.team.id}/matches`}>
+                                <Link className="table__link" exact to={`/teams/${team.team.id}/matches/`}>
                                     {team.team.name}
                                 </Link>
                             </td>

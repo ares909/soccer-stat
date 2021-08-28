@@ -19,12 +19,13 @@
         border-radius: 8px;
         max-width: 150px;
         border: 1.5px solid #aaaaaa;
-        @media screen and (min-width: 320px) and (max-width: 1279px) {
+        @media screen and (min-width: 769px) and (max-width: 1279px) {
             @include small-screen-text();
             padding: 2px;
         }
         @media screen and (min-width: 320px) and (max-width: 520px) {
-            width: 100px;
+            @include mobile-screen-text();
+            width: 90px;
         }
     }
 

@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 function Tablemobile({ onematch }) {
+    function formatDate(date) {
+        const format = new Date(Date.parse(date)).toLocaleString().slice(0, 10);
+        return format;
+    }
+
     return (
         <div className="table-mobile">
-            <p className="table-mobile__text">{onematch.utcDate}</p>
+            <p className="table-mobile__text">{formatDate(onematch.utcDate)}</p>
             <div className="table-mobile__match">
                 <p className="table-mobile__text table-mobile__match_team"> {onematch.homeTeam.name}</p>
                 <p className="table-mobile__text table-mobile__match_result">{`${

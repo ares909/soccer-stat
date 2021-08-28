@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useHistory, Link, useLocation } from "react-router-dom";
 
-function Navbar({ competitionId }) {
+function Navbar({ competitionId, dateFrom, dateTo }) {
     const history = useHistory();
     // const goBack = () => {
     //     history.goBack();
@@ -21,7 +21,7 @@ function Navbar({ competitionId }) {
                 }}
                 className="navbar__link"
                 exact
-                to={`/competitions/${competitionId}/teams`}
+                to={`/competitions/${competitionId}/teams/`}
             >
                 Команды
             </NavLink>
@@ -33,7 +33,7 @@ function Navbar({ competitionId }) {
                 }}
                 className="navbar__link"
                 exact
-                to={`/competitions/${competitionId}/standings`}
+                to={`/competitions/${competitionId}/standings/`}
             >
                 Таблица
             </NavLink>
@@ -44,8 +44,10 @@ function Navbar({ competitionId }) {
                     borderBottom: "thick solid",
                 }}
                 className="navbar__link"
-                exact
-                to={`/competitions/${competitionId}/matches`}
+                to={
+                    `/competitions/${competitionId}/matches/` ||
+                    `/competitions/${competitionId}/matches/${dateFrom}/${dateTo}`
+                }
             >
                 Матчи
             </NavLink>
