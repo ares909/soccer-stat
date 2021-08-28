@@ -1,0 +1,114 @@
+@mixin large-screen-text {
+    font-size: 18px;
+    line-height: 22px;
+}
+@mixin medium-screen-text {
+    font-size: 14px;
+    line-height: 19px;
+}
+
+@mixin small-screen-text {
+    font-size: 12px;
+    line-height: 17px;
+}
+@mixin mobile-screen-text {
+    font-size: 10px;
+    line-height: 14px;
+}
+
+@mixin hover() {
+    transition: opacity 0.1s ease 0s;
+    color: inherit;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+.table {
+    width: 50%;
+    table-layout: auto;
+    margin: 20px auto 0;
+    border-collapse: collapse;
+    @media screen and (min-width: 320px) and (max-width: 1024px) {
+        width: 80%;
+    }
+
+    &_disabled {
+        @media screen and (min-width: 320px) and (max-width: 520px) {
+            display: none;
+        }
+    }
+
+    &__item {
+        // display: flex;
+        // flex-direction: row;
+        // column-gap: 5px;
+        @include medium-screen-text();
+
+        text-align: center;
+        align-items: center;
+    }
+    &__team {
+        @include hover();
+        display: flex;
+        flex-direction: row;
+        @include medium-screen-text();
+        text-decoration: none;
+        align-items: center;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+        @media screen and (min-width: 320px) and (max-width: 767px) {
+            @include mobile-screen-text();
+        }
+    }
+    &__image {
+        width: 30px;
+        height: 30px;
+
+        @media screen and (min-width: 320px) and (max-width: 767px) {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    &__link {
+        padding: 5px;
+        text-decoration: none;
+        color: inherit;
+        text-overflow: clip;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    &__container {
+        margin: 10px 0 10px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__text {
+        padding: 5px;
+        text-align: center;
+        text-overflow: clip;
+        white-space: nowrap;
+        overflow: hidden;
+        @media screen and (min-width: 320px) and (max-width: 767px) {
+            margin-right: 5px;
+            @include mobile-screen-text();
+        }
+        &_chosen {
+            background-color: lightskyblue;
+        }
+    }
+}
+
+th {
+    border-bottom: 1px solid rgba(54, 11, 122, 1);
+    padding: 5px;
+    @media screen and (min-width: 320px) and (max-width: 767px) {
+        @include mobile-screen-text();
+    }
+}

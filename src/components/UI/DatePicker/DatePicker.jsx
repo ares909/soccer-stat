@@ -5,15 +5,15 @@ import DateInput from "../date-input/DateInput.jsx";
 function DatePicker({ filter, setFilter, filterMatches }) {
     const currentDate = new Date().toISOString().slice(0, 10);
     return (
-        <form onSubmit={filterMatches}>
-            <label>Date from</label>
+        <form className="date-picker" onSubmit={filterMatches}>
+            <label className="date-picker__label">От</label>
             <DateInput
                 value={filter.dateFrom}
                 onChange={(e) => {
                     setFilter({ ...filter, dateFrom: e.target.value });
                 }}
             />
-            <label>Date to</label>
+            <label className="date-picker__label">До</label>
             <DateInput
                 value={filter.dateTo}
                 onChange={(e) => {

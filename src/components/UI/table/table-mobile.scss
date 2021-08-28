@@ -1,0 +1,51 @@
+.table-mobile {
+    display: none;
+    @media screen and (min-width: 320px) and (max-width: 520px) {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #360b7a;
+        padding: 5px;
+    }
+    &__match {
+        color: black;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        text-align: center;
+        margin: 10px auto 10px;
+        justify-content: space-between;
+    }
+
+    &__match_result {
+        display: block;
+        background-color: #360b7a;
+        color: white;
+        width: 80%;
+       
+    }
+
+    &__match_team {
+        
+        width: 70px;
+       
+    }
+
+
+    &__text {
+        @include mobile-screen-text();
+        margin: 0 auto;
+        text-align: center;
+        align-self: center;
+    }
+
+    &__container {
+        display: none;
+        @media screen and (min-width: 320px) and (max-width: 520px) {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+    }
+}

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 function Comptetition({ competition }) {
     return (
-        <NavLink className="complist__link" to={`/competitions/${competition.id}`}>
+        <NavLink className="complist__link" to={`/competitions/${competition.id}/teams`}>
             <li className="complist__item">
                 <img
                     className="complist__item-image"

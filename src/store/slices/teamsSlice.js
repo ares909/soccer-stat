@@ -4,6 +4,7 @@ import * as api from "../../api/api";
 const initialState = {
     teams: [],
     season: [],
+    competition: {},
     status: "idle",
     error: null,
 };
@@ -24,6 +25,7 @@ export const teamsSlice = createSlice({
             state.status = "succeeded";
             state.teams = action.payload.teams;
             state.season = action.payload.season;
+            state.competition = action.payload.competition;
         },
         [fetchTeams.rejected]: (state, action) => {
             state.status = "failed";

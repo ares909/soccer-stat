@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchSingleTeam } from "../../store/slices/singleTeamSlice";
+import { fetchMatches, applyFilter } from "../../store/slices/matchesSlice";
 import DatePicker from "../UI/DatePicker/DatePicker.jsx";
 import Header from "../Header/Header.jsx";
 import Tablemobile from "../UI/table/Tablemobile.jsx";
 
-function TeamCalendar({ match }) {
-    const { teamId } = match.params;
+function Matches({ match }) {
+    const history = useHistory();
+
+    const goBack = () => {
+        history.goBack();
+    };
+    const { competitionId } = match.params;
     const dispatch = useDispatch();
-    const matches = useSelector((state) => state.team.calendar);
+    const matches = useSelector((state) => state.matches.matches);
+    const competition = useSelector((state) => state.matches.competition);
+    const competitionStatus = useSelector((state) => state.matches.status);
+    const error = useSelector((state) => state.matches.error);
     const [filter, setFilter] = useState({ dateFrom: "", dateTo: "" });
-    const [filteredData, setFilteredData] = useState();
 
     useEffect(() => {
-        dispatch(fetchSingleTeam({ teamId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
-        console.log(matches);
-    }, [dispatch]);
+        dispatch(fetchMatches({ competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
+    }, [dispatch, competitionId]);
 
     function filterMatches(e) {
         e.preventDefault();
-        dispatch(fetchSingleTeam({ teamId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
+        dispatch(fetchMatches({ competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }));
     }
+
     function formatDate(date) {
         const format = new Date(Date.parse(date)).toISOString().slice(0, 10);
         return format;
@@ -29,7 +36,7 @@ function TeamCalendar({ match }) {
 
     return (
         <section>
-            <Header teamId={teamId} />
+            <Header competition={competition} competitionId={competitionId}></Header>
             <div className="table__container">
                 <DatePicker filter={filter} setFilter={setFilter} filterMatches={filterMatches}></DatePicker>
             </div>
@@ -54,21 +61,9 @@ function TeamCalendar({ match }) {
                         <tr key={onematch.id}>
                             <td className="table__text">{formatDate(onematch.utcDate)}</td>
 
-                            <td
-                                className={`table__text ${
-                                    onematch.homeTeam.id === Number(teamId) ? "table__text_chosen" : ""
-                                }`}
-                            >
-                                {onematch.homeTeam.name}
-                            </td>
+                            <td className="table__text">{onematch.homeTeam.name}</td>
                             <td className="table__text">vs</td>
-                            <td
-                                className={`table__text ${
-                                    onematch.awayTeam.id === Number(teamId) ? "table__text_chosen" : ""
-                                }`}
-                            >
-                                {onematch.awayTeam.name}
-                            </td>
+                            <td className="table__text">{onematch.awayTeam.name}</td>
                             <td className="table__text">{onematch.status}</td>
 
                             {/* <td>{`${onematch.score.fulltime}`}</td> */}
@@ -92,4 +87,5 @@ function TeamCalendar({ match }) {
         </section>
     );
 }
-export default TeamCalendar;
+
+export default Matches;

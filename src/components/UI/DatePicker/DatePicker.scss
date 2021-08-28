@@ -1,0 +1,41 @@
+.date-picker {
+    display: flex;
+    flex-direction: row;
+    max-width: 600px;
+    margin: 10px auto 10px;
+    align-items: center;
+    @media screen and (min-width: 320px) and (max-width: 520px) {
+        max-width: 280px;
+    }
+
+    &__input {
+        color: inherit;
+
+        @include medium-screen-text();
+        padding: 5px;
+        margin-right: 10px;
+        outline-style: none;
+        border: none;
+        border-radius: 8px;
+        max-width: 150px;
+        border: 1.5px solid #aaaaaa;
+        @media screen and (min-width: 320px) and (max-width: 1279px) {
+            @include small-screen-text();
+            padding: 2px;
+        }
+        @media screen and (min-width: 320px) and (max-width: 520px) {
+            width: 100px;
+        }
+    }
+
+    &__label {
+        padding: 5px;
+        text-align: center;
+        text-overflow: clip;
+        white-space: nowrap;
+        overflow: hidden;
+        @media screen and (min-width: 320px) and (max-width: 767px) {
+            display: none;
+        }
+    }
+}

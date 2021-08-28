@@ -3,6 +3,7 @@ import * as api from "../../api/api";
 
 const initialState = {
     standings: [],
+    competition: {},
     status: "idle",
     error: null,
 };
@@ -33,6 +34,7 @@ export const standingsSlice = createSlice({
             const filteredStandings = action.payload.standings.map((standing) => standing.table);
 
             state.standings = filteredStandings.shift(); // concat here? need to think how to hoist array from array
+            state.competition = action.payload.competition;
         },
         [getSchedule.rejected]: (state, action) => {
             state.status = "failed";

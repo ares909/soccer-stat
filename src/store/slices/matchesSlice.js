@@ -3,6 +3,7 @@ import * as api from "../../api/api";
 
 const initialState = {
     matches: [],
+    competition: {},
     status: "idle",
     error: null,
 };
@@ -35,6 +36,7 @@ export const matchesSlice = createSlice({
             // });
 
             state.matches = action.payload.matches;
+            state.competition = action.payload.competition;
         },
         [fetchMatches.rejected]: (state, action) => {
             state.status = "failed";

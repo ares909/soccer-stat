@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { NavLink, useHistory, Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCompetition } from "../../store/slices/singleCompetitionSlice";
+import Header from "../Header/Header.jsx";
 
 function SingleCompetition({ match }) {
     const competitionStatus = useSelector((state) => state.competition.status);
@@ -43,8 +44,8 @@ function SingleCompetition({ match }) {
 
     return (
         <section className="single-competition">
+            <Header competition={competition}></Header>
             <div className="single-competition__container">
-                <img src={competition.emblemUrl} />
                 <h1 className="single-competition__title">{competition.name}</h1>
                 <nav className="single-competition__navigation">
                     <Link onClick={goBack}>Back to main</Link>
@@ -56,9 +57,6 @@ function SingleCompetition({ match }) {
                     </NavLink>
                     <NavLink exact to={`/competitions/${competitionId}/matches`}>
                         Matches
-                    </NavLink>
-                    <NavLink exact to={`/competitions/${competitionId}/scorers`}>
-                        Scorers
                     </NavLink>
                 </nav>
                 {info}

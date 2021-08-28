@@ -18,6 +18,8 @@
     line-height: 17px;
 }
 
+
+
 @mixin hover() {
     transition: opacity 0.1s ease 0s;
     color: inherit;
@@ -30,6 +32,7 @@
 .header {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     padding: 15px 30px 15px;
     background-color: rgba(54, 11, 122, 1);
     color: white;
@@ -45,6 +48,11 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+    &__container_disabled {
+        @media screen and (min-width: 320px) and (max-width: 767px) {
+            display: none;
+        }
     }
     &__link {
         @include hover();
@@ -66,6 +74,7 @@
         @include header-screen-text();
         text-align: center;
         align-self: center;
+        
         @media screen and (min-width: 768px) and (max-width: 1014px) {
             @include large-screen-text();
         }

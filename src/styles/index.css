@@ -532,6 +532,7 @@ template {
 .header {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   padding: 15px 30px 15px;
   background-color: #360b7a;
   color: white;
@@ -551,6 +552,11 @@ template {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .header__container_disabled {
+    display: none;
+  }
 }
 .header__link {
   transition: opacity 0.1s ease 0s;
@@ -649,6 +655,241 @@ template {
     font-size: 12px;
     line-height: 17px;
     padding: 5px 8px 5px;
+  }
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .navbar {
+    margin: 0 auto 0;
+  }
+}
+.navbar__link {
+  font-size: 18px;
+  line-height: 22px;
+  transition: opacity 0.1s ease 0s;
+  color: inherit;
+  font-weight: 900;
+  color: white;
+  text-align: center;
+  align-self: center;
+  margin-right: 10px;
+  text-decoration: none;
+}
+.navbar__link:hover {
+  opacity: 0.6;
+}
+@media screen and (min-width: 768px) and (max-width: 1014px) {
+  .navbar__link {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .navbar__link {
+    font-size: 14px;
+    line-height: 19px;
+  }
+}
+.navbar :last-of-type {
+  margin-right: 0;
+}
+
+.table {
+  width: 50%;
+  table-layout: auto;
+  margin: 20px auto 0;
+  border-collapse: collapse;
+}
+@media screen and (min-width: 320px) and (max-width: 1024px) {
+  .table {
+    width: 80%;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 520px) {
+  .table_disabled {
+    display: none;
+  }
+}
+.table__item {
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  align-items: center;
+}
+.table__team {
+  transition: opacity 0.1s ease 0s;
+  color: inherit;
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  line-height: 19px;
+  text-decoration: none;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+.table__team:hover {
+  opacity: 0.6;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .table__team {
+    font-size: 10px;
+    line-height: 14px;
+  }
+}
+.table__image {
+  width: 30px;
+  height: 30px;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .table__image {
+    width: 15px;
+    height: 15px;
+  }
+}
+.table__link {
+  padding: 5px;
+  text-decoration: none;
+  color: inherit;
+  text-overflow: clip;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.table__container {
+  margin: 10px 0 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.table__text {
+  padding: 5px;
+  text-align: center;
+  text-overflow: clip;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .table__text {
+    margin-right: 5px;
+    font-size: 10px;
+    line-height: 14px;
+  }
+}
+.table__text_chosen {
+  background-color: lightskyblue;
+}
+
+th {
+  border-bottom: 1px solid #360b7a;
+  padding: 5px;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  th {
+    font-size: 10px;
+    line-height: 14px;
+  }
+}
+
+.table-mobile {
+  display: none;
+}
+@media screen and (min-width: 320px) and (max-width: 520px) {
+  .table-mobile {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #360b7a;
+    padding: 5px;
+  }
+}
+.table-mobile__match {
+  color: black;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  text-align: center;
+  margin: 10px auto 10px;
+  justify-content: space-between;
+}
+.table-mobile__match_result {
+  display: block;
+  background-color: #360b7a;
+  color: white;
+  width: 80%;
+}
+.table-mobile__match_team {
+  width: 70px;
+}
+.table-mobile__text {
+  font-size: 10px;
+  line-height: 14px;
+  margin: 0 auto;
+  text-align: center;
+  align-self: center;
+}
+.table-mobile__container {
+  display: none;
+}
+@media screen and (min-width: 320px) and (max-width: 520px) {
+  .table-mobile__container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+}
+
+.date-picker {
+  display: flex;
+  flex-direction: row;
+  max-width: 600px;
+  margin: 10px auto 10px;
+  align-items: center;
+}
+@media screen and (min-width: 320px) and (max-width: 520px) {
+  .date-picker {
+    max-width: 280px;
+  }
+}
+.date-picker__input {
+  color: inherit;
+  font-size: 14px;
+  line-height: 19px;
+  padding: 5px;
+  margin-right: 10px;
+  outline-style: none;
+  border: none;
+  border-radius: 8px;
+  max-width: 150px;
+  border: 1.5px solid #aaaaaa;
+}
+@media screen and (min-width: 320px) and (max-width: 1279px) {
+  .date-picker__input {
+    font-size: 12px;
+    line-height: 17px;
+    padding: 2px;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 520px) {
+  .date-picker__input {
+    width: 100px;
+  }
+}
+.date-picker__label {
+  padding: 5px;
+  text-align: center;
+  text-overflow: clip;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .date-picker__label {
+    display: none;
   }
 }
 
