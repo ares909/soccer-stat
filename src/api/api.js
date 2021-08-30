@@ -69,13 +69,14 @@ export const getMatches = async ({ competitionId, dateFrom, dateTo }) => {
     }
 };
 
-export const getTeamMatches = async ({ teamId, dateFrom, dateTo }) => {
+export const getTeamMatches = async ({ teamId, dateFrom, dateTo, limit }) => {
     try {
         const response = await axios.get(`${BASE_URL}teams/${teamId}/matches`, {
             headers,
             params: {
                 dateFrom,
                 dateTo,
+                limit,
             },
         });
         return response.data;

@@ -18,13 +18,17 @@ function Standings({ match }) {
     const error = useSelector((state) => state.standings.error);
 
     useEffect(() => {
-        dispatch(getSchedule(competitionId));
-    }, [dispatch]);
+        if (competitionStatus === "idle") {
+            dispatch(getSchedule(competitionId));
+        } else if (competitionStatus === "succeeded" && competitionId !== competition.id.toString()) {
+            dispatch(getSchedule(competitionId));
+        }
+    }, [dispatch, competitionStatus, competitionId]);
 
     return (
-        <section>
+        <section className="table">
             <Header competition={competition} competitionId={competitionId}></Header>
-            <table className="table">
+            <table className="table__section">
                 <thead className="table__head">
                     <tr className="table__label">
                         <th>№</th>

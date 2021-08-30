@@ -20,7 +20,6 @@ function Navbar({ competitionId, dateFrom, dateTo }) {
                     borderBottom: "thick solid",
                 }}
                 className="navbar__link"
-                exact
                 to={`/competitions/${competitionId}/teams/`}
             >
                 Команды

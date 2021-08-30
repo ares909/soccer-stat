@@ -62,11 +62,14 @@
             @include small-screen-text();
             padding: 5px 8px 5px;
         }
+        &_disabled {
+            opacity: 0.6;
+        }
     }
     &__add-button {
         margin: 10px 0 0;
         align-self: center;
-      
+
         min-width: 60px;
         @media screen and (min-width: 320px) and (max-width: 520px) {
             position: inherit;

@@ -521,14 +521,6 @@ template {
   }
 }
 
-.single-competition {
-  display: flex;
-  flex-direction: column;
-}
-.single-competition__title {
-  font-weight: 900;
-}
-
 .header {
   display: flex;
   flex-direction: row;
@@ -656,6 +648,9 @@ template {
     line-height: 17px;
     padding: 5px 8px 5px;
   }
+}
+.search-bar__button_disabled {
+  opacity: 0.6;
 }
 .search-bar__add-button {
   margin: 10px 0 0;

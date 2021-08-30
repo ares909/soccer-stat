@@ -7,8 +7,8 @@ const initialState = {
     error: null,
 };
 
-export const fetchSingleTeam = createAsyncThunk("team/singleTeamSlice", async ({ teamId, dateFrom, dateTo }) => {
-    return api.getTeamMatches({ teamId, dateFrom, dateTo });
+export const fetchSingleTeam = createAsyncThunk("team/singleTeamSlice", async ({ teamId, dateFrom, dateTo, limit }) => {
+    return api.getTeamMatches({ teamId, dateFrom, dateTo, limit });
 });
 
 export const singleTeamSlice = createSlice({

@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CompList from "../CompList/CompList.jsx";
 import Matches from "../Matches/Matches.jsx";
-import SingleCompetition from "../SingleCompetition/SingleCompetition";
 import Standings from "../Standings/Standings.jsx";
 import TeamCalendar from "../TeamCalendar/TeamCalendar.jsx";
 import TeamList from "../TeamList/TeamList.jsx";
@@ -12,12 +11,11 @@ function App() {
         <Router>
             <div className="App">
                 <Switch>
-                    <Route exact path="/" render={() => <CompList />} />
-                    {/* <Route exact path="/competitions/:competitionId" component={SingleCompetition} /> */}
-                    <Route exact path="/competitions/:competitionId/teams/" component={TeamList} />
+                    <Route exact path="/:filtered?" render={() => <CompList />} />
+                    <Route exact path="/competitions/:competitionId/teams/:filtered?" component={TeamList} />
                     <Route exact path="/competitions/:competitionId/standings/" component={Standings} />
                     <Route exact path="/competitions/:competitionId/matches/:dateFrom?/:dateTo?" component={Matches} />
-                    <Route exact path="/teams/:teamId/matches/:dateFrom?/:dateTo?/:limit?" component={TeamCalendar} />
+                    <Route exact path="/teams/:teamId/matches/:dateFrom?/:dateTo?" component={TeamCalendar} />
                 </Switch>
             </div>
         </Router>

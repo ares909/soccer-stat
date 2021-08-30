@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Comptetition from "../Competition/Competition";
+import Comptetition from "../Competition/Competition.jsx";
 import { fetchCompetitions, selectAllComps, selectCompById, selectCompIds } from "../../store/slices/competitionsSlice";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import Header from "../Header/Header.jsx";
 
 function CompList() {
     const dispatch = useDispatch();
+    const history = useHistory();
+    const { filtered } = useParams();
     const competitions = useSelector((state) => state.competitions.competitions);
     const competitionsStatus = useSelector((state) => state.competitions.status);
     const error = useSelector((state) => state.competitions.error);
-    const [filter, setFilter] = useState();
-    const [filteredData, setFilteredData] = useState();
+    const [filter, setFilter] = useState(filtered || "");
+    const [filteredData, setFilteredData] = useState("");
 
     useEffect(() => {
         if (competitionsStatus === "idle") {
@@ -19,12 +22,22 @@ function CompList() {
         }
     }, [competitionsStatus, dispatch]);
 
+    useEffect(() => {
+        if (filtered !== "" || filtered !== undefined) {
+            const filteredList = competitions.filter((competition) =>
+                competition.name.toLowerCase().includes(filter.toLowerCase()),
+            );
+            setFilteredData(filteredList);
+        }
+    }, [competitionsStatus]);
+
     const getFilteredList = (e) => {
         e.preventDefault();
-        const filtered = competitions.filter((competition) =>
+        const filteredList = competitions.filter((competition) =>
             competition.name.toLowerCase().includes(filter.toLowerCase()),
         );
-        setFilteredData(filtered);
+        setFilteredData(filteredList);
+        history.push(`/${filter}`);
     };
 
     const filteredList = () => {

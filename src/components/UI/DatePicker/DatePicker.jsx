@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../button/Button.jsx";
 import DateInput from "../date-input/DateInput.jsx";
 
-function DatePicker({ filter, setFilter, filterMatches }) {
+function DatePicker({ filter, setFilter, filterMatches, isValid }) {
     const currentDate = new Date().toISOString().slice(0, 10);
     return (
         <form className="date-picker" onSubmit={filterMatches}>
@@ -20,7 +20,7 @@ function DatePicker({ filter, setFilter, filterMatches }) {
                     setFilter({ ...filter, dateTo: e.target.value });
                 }}
             />
-            <Button></Button>
+            <Button isValid={isValid}></Button>
         </form>
     );
 }

@@ -5,8 +5,14 @@ import { fetchTeams } from "../../store/slices/teamsSlice";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import Header from "../Header/Header.jsx";
 
-function TeamList({ match }) {
-    const [filter, setFilter] = useState();
+function TeamList() {
+    const { competitionId, filtered } = useParams();
+    const dispatch = useDispatch();
+    const teams = useSelector((state) => state.teams.teams);
+    const competition = useSelector((state) => state.teams.competition);
+    const competitionStatus = useSelector((state) => state.teams.status);
+    const error = useSelector((state) => state.teams.error);
+    const [filter, setFilter] = useState(filtered || "");
     const [filteredData, setFilteredData] = useState();
 
     const history = useHistory();
@@ -14,21 +20,27 @@ function TeamList({ match }) {
     const goBack = () => {
         history.goBack();
     };
-    const { competitionId } = useParams();
-    const dispatch = useDispatch();
-    const teams = useSelector((state) => state.teams.teams);
-    const competition = useSelector((state) => state.teams.competition);
-    const competitionStatus = useSelector((state) => state.teams.status);
-    const error = useSelector((state) => state.teams.error);
 
     useEffect(() => {
-        dispatch(fetchTeams(competitionId));
-    }, [dispatch]);
+        if (competitionStatus === "idle") {
+            dispatch(fetchTeams(competitionId));
+        } else if (competitionStatus === "succeeded" && competitionId !== competition.id.toString()) {
+            dispatch(fetchTeams(competitionId));
+        }
+    }, [dispatch, competitionStatus, competitionId]);
+
+    useEffect(() => {
+        if (filtered !== "" || filtered !== undefined) {
+            const filteredList = teams.filter((team) => team.name.toLowerCase().includes(filter.toLowerCase()));
+            setFilteredData(filteredList);
+        }
+    }, [competitionStatus, competitionId]);
 
     const getFilteredList = (e) => {
         e.preventDefault();
-        const filtered = teams.filter((team) => team.name.toLowerCase().includes(filter.toLowerCase()));
-        setFilteredData(filtered);
+        const filteredList = teams.filter((team) => team.name.toLowerCase().includes(filter.toLowerCase()));
+        setFilteredData(filteredList);
+        history.push(`/competitions/${competitionId}/teams/${filter}`);
     };
 
     const filteredList = () => {
@@ -46,7 +58,7 @@ function TeamList({ match }) {
                 <SearchBar filter={filter} setFilter={setFilter} getFilteredList={getFilteredList}></SearchBar>
             </div>
 
-            <table className="table">
+            <table className="table__section">
                 <thead className="table__head">
                     <tr className="table__label">
                         <th>Команда</th>
