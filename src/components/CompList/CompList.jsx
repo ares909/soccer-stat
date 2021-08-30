@@ -5,6 +5,8 @@ import Comptetition from "../Competition/Competition.jsx";
 import { fetchCompetitions, selectAllComps, selectCompById, selectCompIds } from "../../store/slices/competitionsSlice";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import Header from "../Header/Header.jsx";
+import Error from "../UI/error/Error.jsx";
+import errorMessages from "../UI/error/errorMessages";
 
 function CompList() {
     const dispatch = useDispatch();
@@ -50,14 +52,19 @@ function CompList() {
     let content;
 
     if (competitionsStatus === "loading") {
-        content = <div className="loader">Loading...</div>;
+        content = <div className="loader">Загрузка...</div>;
     } else if (competitionsStatus === "succeeded") {
         const filteredCompetitions = filteredList();
-        content = filteredCompetitions.map((competition) => (
-            <Comptetition key={competition.id} competition={competition} />
-        ));
-    } else if (competitionsStatus === "failed") {
-        content = <div>{error}</div>;
+        content =
+            filteredCompetitions.length !== 0 ? (
+                filteredCompetitions.map((competition) => (
+                    <Comptetition key={competition.id} competition={competition} />
+                ))
+            ) : (
+                <Error message={errorMessages.emptyList} />
+            );
+    } else if (competitionsStatus === "failed" || competitions === undefined) {
+        content = <Error message={errorMessages.noResponse} />;
     }
 
     return (

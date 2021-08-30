@@ -394,6 +394,7 @@ template {
   grid-template-columns: repeat(5, 1fr);
   align-items: center;
   gap: 20px 20px;
+  position: relative;
 }
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .complist__container {
@@ -460,7 +461,6 @@ template {
 }
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .complist__item-name {
-    font-weight: 900;
     font-size: 14px;
     line-height: 19px;
   }
@@ -906,6 +906,26 @@ th {
   .date-picker__label {
     display: none;
   }
+}
+
+.error {
+  font-size: 24px;
+  line-height: 26px;
+  margin-top: 40px;
+  font-weight: 900;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .error {
+    margin-right: 5px;
+    font-size: 10px;
+    line-height: 14px;
+  }
+}
+.error__table {
+  position: inherit;
 }
 
 /*# sourceMappingURL=index.css.map */

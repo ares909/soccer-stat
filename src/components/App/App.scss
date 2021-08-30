@@ -1,3 +1,21 @@
+@mixin large-screen-text {
+    font-size: 18px;
+    line-height: 22px;
+}
+@mixin medium-screen-text {
+    font-size: 14px;
+    line-height: 19px;
+}
+
+@mixin small-screen-text {
+    font-size: 12px;
+    line-height: 17px;
+}
+@mixin mobile-screen-text {
+    font-size: 10px;
+    line-height: 14px;
+}
+
 #root {
     display: flex;
     flex-direction: column;
@@ -16,3 +34,4 @@
         padding: 0 7px 0;
     }
 }
+
