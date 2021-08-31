@@ -15,7 +15,7 @@
         margin-right: 10px;
         text-decoration: none;
         // white-space: nowrap;
-        @media screen and (min-width: 768px) and (max-width: 1014px) {
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
             @include large-screen-text();
         }
         @media screen and (min-width: 320px) and (max-width: 767px) {

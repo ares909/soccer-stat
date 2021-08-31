@@ -12,13 +12,6 @@ const headers = {
     "X-Auth-Token": process.env.REACT_APP_API_TOKEN,
 };
 
-// export const getCompetitions = (plan = "TIER_ONE") => {
-//     return fetch(`${BASE_URL}competitions?${plan}`, {
-//         headers,
-//         // credentials: "include",
-//     }).then(onError);
-// };
-
 export const getCompetitions = async (plan = "TIER_ONE") => {
     try {
         const response = await axios.get(`${BASE_URL}competitions`, {
@@ -33,25 +26,37 @@ export const getCompetitions = async (plan = "TIER_ONE") => {
     }
 };
 
-export const getCompetition = (competitionId) => {
-    return fetch(`${BASE_URL}competitions/${competitionId}`, {
-        headers,
-        // credentials: "include",
-    }).then(onError);
+export const getCompetition = async (competitionId) => {
+    try {
+        const response = await axios.get(`${BASE_URL}competitions/${competitionId}`, {
+            headers,
+        });
+        return response.data;
+    } catch (error) {
+        return new Error("Произошла ошибка");
+    }
 };
 
-export const getSchedule = (competitionId) => {
-    return fetch(`${BASE_URL}competitions/${competitionId}/standings`, {
-        headers,
-        // credentials: "include",
-    }).then(onError);
+export const getSchedule = async (competitionId) => {
+    try {
+        const response = await axios.get(`${BASE_URL}competitions/${competitionId}/standings`, {
+            headers,
+        });
+        return response.data;
+    } catch (error) {
+        return new Error("Произошла ошибка");
+    }
 };
 
-export const getTeams = (competitionId) => {
-    return fetch(`${BASE_URL}competitions/${competitionId}/teams`, {
-        headers,
-        // credentials: "include",
-    }).then(onError);
+export const getTeams = async (competitionId) => {
+    try {
+        const response = await axios.get(`${BASE_URL}competitions/${competitionId}/teams`, {
+            headers,
+        });
+        return response.data;
+    } catch (error) {
+        return new Error("Произошла ошибка");
+    }
 };
 
 export const getMatches = async ({ competitionId, dateFrom, dateTo }) => {

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useHistory, Link, useParams } from "react-router-dom";
+import { useHistory, Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTeams } from "../../store/slices/teamsSlice";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import Header from "../Header/Header.jsx";
-import Error from "../UI/error/Error.jsx";
-import errorMessages from "../UI/error/errorMessages";
+import Content from "../UI/content/Content.jsx";
 
 function TeamList() {
     const { competitionId, filtered } = useParams();
@@ -18,10 +17,6 @@ function TeamList() {
     const [filteredData, setFilteredData] = useState();
 
     const history = useHistory();
-
-    const goBack = () => {
-        history.goBack();
-    };
 
     useEffect(() => {
         if (teamStatus === "idle") {
@@ -52,14 +47,14 @@ function TeamList() {
         return teams;
     };
 
-    let content;
+    return (
+        <section className="table">
+            <Header competition={competition} competitionId={competitionId}></Header>
 
-    if (teamStatus === "loading") {
-        content = <div className="loader">Загрузка...</div>;
-    } else if (teamStatus === "succeeded") {
-        const filteredCompetitions = filteredList();
-        content =
-            filteredCompetitions.length !== 0 ? (
+            <div className="table__container">
+                <SearchBar filter={filter} setFilter={setFilter} getFilteredList={getFilteredList}></SearchBar>
+            </div>
+            <Content competitionStatus={teamStatus} data={filteredList()} error={error}>
                 <table className="table__section">
                     <thead className="table__head">
                         <tr className="table__label">
@@ -72,10 +67,10 @@ function TeamList() {
                         {filteredList().map((team) => (
                             <tr className="table__item" key={team.id}>
                                 <td className="table__team">
-                                    <Link className="table__link" exact to={`/teams/${team.id}/matches/`}>
+                                    <Link className="table__link" to={`/teams/${team.id}/matches/`}>
                                         <img className="table__image" src={team.crestUrl} />
                                     </Link>
-                                    <Link className="table__link" exact to={`/teams/${team.id}/matches/`}>
+                                    <Link className="table__link" to={`/teams/${team.id}/matches/`}>
                                         {team.name}
                                     </Link>
                                 </td>
@@ -85,21 +80,7 @@ function TeamList() {
                         ))}
                     </tbody>
                 </table>
-            ) : (
-                <Error message={errorMessages.emptyList} />
-            );
-    } else if (teamStatus === "failed" || teams === undefined) {
-        content = <Error message={error || errorMessages.noResponse} />;
-    }
-
-    return (
-        <section className="table">
-            <Header competition={competition} competitionId={competitionId}></Header>
-
-            <div className="table__container">
-                <SearchBar filter={filter} setFilter={setFilter} getFilteredList={getFilteredList}></SearchBar>
-            </div>
-            {content}
+            </Content>
         </section>
     );
 }

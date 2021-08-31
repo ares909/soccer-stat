@@ -104,6 +104,10 @@
             margin-right: 5px;
             @include mobile-screen-text();
         }
+        @media screen and (min-width: 768px) and (max-width: 1023px) {
+            margin-right: 5px;
+            @include small-screen-text();
+        }
         &_chosen {
             background-color: lightskyblue;
         }

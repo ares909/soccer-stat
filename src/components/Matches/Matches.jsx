@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useHistory, Link, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchMatches, applyFilter } from "../../store/slices/matchesSlice";
+import { fetchMatches } from "../../store/slices/matchesSlice";
 
 import MatchList from "../UI/matchlist/MatchList.jsx";
 
 function Matches() {
     const history = useHistory();
-
-    const goBack = () => {
-        history.goBack();
-    };
     const params = useParams();
     const dispatch = useDispatch();
     const matches = useSelector((state) => state.matches.matches);

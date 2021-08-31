@@ -10,6 +10,7 @@ function TeamCalendar() {
     const dispatch = useDispatch();
     const matches = useSelector((state) => state.team.calendar);
     const error = useSelector((state) => state.team.error);
+    const competitionStatus = useSelector((state) => state.team.status);
     const [filter, setFilter] = useState({ dateFrom: params.dateFrom || "", dateTo: params.dateTo || "" });
     const [limit, setLimit] = useState(10);
 
@@ -33,6 +34,7 @@ function TeamCalendar() {
             setLimit={setLimit}
             error={error}
             teamId={params.teamId}
+            competitionStatus={competitionStatus}
         />
     );
 }

@@ -1,14 +1,12 @@
 .error {
     @include header-screen-text();
     margin-top: 40px;
-    font-weight: 900;
-    //    position: absolute;
+
     width: 100%;
     text-align: center;
     white-space: nowrap;
 
     @media screen and (min-width: 320px) and (max-width: 767px) {
-        margin-right: 5px;
         @include mobile-screen-text();
     }
 

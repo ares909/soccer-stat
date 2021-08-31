@@ -56,6 +56,7 @@
     }
     &__link {
         @include hover();
+        cursor: pointer;
         margin-right: 15px;
         @media screen and (min-width: 320px) and (max-width: 767px) {
             margin-right: 8px;
@@ -75,7 +76,7 @@
         text-align: center;
         align-self: center;
         
-        @media screen and (min-width: 768px) and (max-width: 1014px) {
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
             @include large-screen-text();
         }
         @media screen and (min-width: 320px) and (max-width: 767px) {

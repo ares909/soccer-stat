@@ -1,15 +1,10 @@
 import React from "react";
-import { NavLink, useHistory, Link, useLocation } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 function Navbar({ competitionId, dateFrom, dateTo }) {
-    const history = useHistory();
-    // const goBack = () => {
-    //     history.goBack();
-    //     // dispatch(goPrevPage());
-    // };
     return (
         <nav className="navbar">
-            <Link className="navbar__link" onClick={() => history.push("/")}>
+            <Link className="navbar__link" to="/">
                 Главная
             </Link>
 

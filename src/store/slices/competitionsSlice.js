@@ -11,12 +11,6 @@ const initialState = compAdapter.getInitialState({
 
 export const fetchCompetitions = createAsyncThunk("competitions/fetchCompetitions", () => {
     return api.getCompetitions();
-    // .then((competitions) => {
-    //     return competitions;
-    // })
-    // .catch((error) => {
-    //     console.log(error);
-    // });
 });
 
 export const competitionsSlice = createSlice({
@@ -29,11 +23,6 @@ export const competitionsSlice = createSlice({
         },
         [fetchCompetitions.fulfilled]: (state, action) => {
             state.status = "succeeded";
-            // Here I filter only tier 1 to display due to 154 competitions
-            // const filteredCompetitions = action.payload.competitions.filter((competition) => {
-            //     return competition.plan === "TIER_ONE" ? competition : "";
-            // });
-
             state.competitions = action.payload.competitions;
         },
         [fetchCompetitions.rejected]: (state, action) => {
@@ -43,12 +32,4 @@ export const competitionsSlice = createSlice({
     },
 });
 
-export const { clearStatus } = competitionsSlice.actions;
-
 export default competitionsSlice.reducer;
-
-export const {
-    selectAll: selectAllComps,
-    selectById: selectCompById,
-    selectIds: selectCompIds,
-} = compAdapter.getSelectors((state) => state.competitions);

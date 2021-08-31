@@ -5,6 +5,7 @@ import Matches from "../Matches/Matches.jsx";
 import Standings from "../Standings/Standings.jsx";
 import TeamCalendar from "../TeamCalendar/TeamCalendar.jsx";
 import TeamList from "../TeamList/TeamList.jsx";
+import Footer from "../Footer/Footer.jsx";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route exact path="/teams/:teamId/matches/:dateFrom?/:dateTo?" component={TeamCalendar} />
                 </Switch>
             </div>
+            <Footer></Footer>
         </Router>
     );
 }
