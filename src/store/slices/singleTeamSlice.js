@@ -4,7 +4,7 @@ import * as api from "../../api/api";
 const initialState = {
     calendar: [],
     status: "idle",
-    error: null,
+    error: "",
 };
 
 export const fetchSingleTeam = createAsyncThunk("team/singleTeamSlice", async ({ teamId, dateFrom, dateTo, limit }) => {
@@ -21,7 +21,8 @@ export const singleTeamSlice = createSlice({
         },
         [fetchSingleTeam.fulfilled]: (state, action) => {
             state.status = "succeeded";
-            state.calendar = action.payload.matches;
+            state.calendar = action.payload.matches ? action.payload.matches : [];
+            state.error = action.payload.message;
         },
         [fetchSingleTeam.rejected]: (state, action) => {
             state.status = "failed";

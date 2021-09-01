@@ -6,7 +6,7 @@ const initialState = {
     season: [],
     competition: {},
     status: "idle",
-    error: null,
+    error: "",
 };
 
 export const fetchTeams = createAsyncThunk("teams/teamsSlice", async (competitionId) => {
@@ -23,9 +23,10 @@ export const teamsSlice = createSlice({
         },
         [fetchTeams.fulfilled]: (state, action) => {
             state.status = "succeeded";
-            state.teams = action.payload.teams;
+            state.teams = action.payload.teams ? action.payload.teams : [];
             state.season = action.payload.season;
             state.competition = action.payload.competition;
+            state.error = action.payload.message;
         },
         [fetchTeams.rejected]: (state, action) => {
             state.status = "failed";

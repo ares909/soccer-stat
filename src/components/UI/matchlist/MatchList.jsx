@@ -70,40 +70,48 @@ function MatchList({
                         </tr>
                     </thead>
                     <tbody className="table__body">
-                        {matches.slice(0, limit).map((onematch) => (
-                            <tr key={onematch.id}>
-                                <td className="table__text">{formatDate(onematch.utcDate)}</td>
+                        {matches
+                            ? matches.slice(0, limit).map((onematch) => (
+                                  <tr key={onematch.id}>
+                                      <td className="table__text">{formatDate(onematch.utcDate)}</td>
 
-                                <td
-                                    className={`table__text ${
-                                        teamId === onematch.homeTeam.id.toString() ? "table__text_chosen" : ""
-                                    }`}
-                                >
-                                    {onematch.homeTeam.name}
-                                </td>
-                                <td className="table__text">vs</td>
-                                <td
-                                    className={`table__text ${
-                                        teamId === onematch.awayTeam.id.toString() ? "table__text_chosen" : ""
-                                    }`}
-                                >
-                                    {onematch.awayTeam.name}
-                                </td>
-                                <td className="table__text">{onematch.status}</td>
+                                      <td
+                                          className={`table__text ${
+                                              teamId === onematch.homeTeam.id.toString() ? "table__text_chosen" : ""
+                                          }`}
+                                      >
+                                          {onematch.homeTeam.name}
+                                      </td>
+                                      <td className="table__text">vs</td>
+                                      <td
+                                          className={`table__text ${
+                                              teamId === onematch.awayTeam.id.toString() ? "table__text_chosen" : ""
+                                          }`}
+                                      >
+                                          {onematch.awayTeam.name}
+                                      </td>
+                                      <td className="table__text">{onematch.status}</td>
 
-                                <td className="table__text">{`${
-                                    onematch.score.fullTime.homeTeam === null ? "-" : onematch.score.fullTime.homeTeam
-                                } : ${
-                                    onematch.score.fullTime.awayTeam === null ? "-" : onematch.score.fullTime.awayTeam
-                                }`}</td>
-                            </tr>
-                        ))}
+                                      <td className="table__text">{`${
+                                          onematch.score.fullTime.homeTeam === null
+                                              ? "-"
+                                              : onematch.score.fullTime.homeTeam
+                                      } : ${
+                                          onematch.score.fullTime.awayTeam === null
+                                              ? "-"
+                                              : onematch.score.fullTime.awayTeam
+                                      }`}</td>
+                                  </tr>
+                              ))
+                            : error}
                     </tbody>
                 </table>
                 <div className="table-mobile__container">
-                    {matches.slice(0, limit).map((onematch) => (
-                        <Tablemobile key={onematch.id} onematch={onematch} teamId={teamId} />
-                    ))}
+                    {matches
+                        ? matches
+                              .slice(0, limit)
+                              .map((onematch) => <Tablemobile key={onematch.id} onematch={onematch} teamId={teamId} />)
+                        : error}
                 </div>
             </Content>
 

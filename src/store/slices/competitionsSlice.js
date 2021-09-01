@@ -6,7 +6,7 @@ const compAdapter = createEntityAdapter();
 const initialState = compAdapter.getInitialState({
     competitions: [],
     status: "idle",
-    error: null,
+    error: "",
 });
 
 export const fetchCompetitions = createAsyncThunk("competitions/fetchCompetitions", () => {
@@ -23,7 +23,8 @@ export const competitionsSlice = createSlice({
         },
         [fetchCompetitions.fulfilled]: (state, action) => {
             state.status = "succeeded";
-            state.competitions = action.payload.competitions;
+            state.competitions = action.payload.competitions ? action.payload.competitions : [];
+            state.error = action.payload.message;
         },
         [fetchCompetitions.rejected]: (state, action) => {
             state.status = "failed";

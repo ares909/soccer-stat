@@ -21,13 +21,13 @@ function TeamList() {
     useEffect(() => {
         if (teamStatus === "idle") {
             dispatch(fetchTeams(competitionId));
-        } else if (teamStatus === "succeeded" && competitionId !== competition.id.toString()) {
+        } else if (!error && teamStatus === "succeeded" && competitionId !== competition.id.toString()) {
             dispatch(fetchTeams(competitionId));
         }
     }, [dispatch, teamStatus, competitionId]);
 
     useEffect(() => {
-        if (filtered !== "" || filtered !== undefined) {
+        if (filtered !== "" && filtered !== undefined) {
             const filteredList = teams.filter((team) => team.name.toLowerCase().includes(filter.toLowerCase()));
             setFilteredData(filteredList);
         }
@@ -41,10 +41,15 @@ function TeamList() {
     };
 
     const filteredList = () => {
+        let data;
         if (filteredData) {
-            return filteredData;
+            data = filteredData;
+        } else if (teams !== undefined) {
+            data = teams;
+        } else {
+            data = error;
         }
-        return teams;
+        return data;
     };
 
     return (
@@ -54,7 +59,7 @@ function TeamList() {
             <div className="table__container">
                 <SearchBar filter={filter} setFilter={setFilter} getFilteredList={getFilteredList}></SearchBar>
             </div>
-            <Content competitionStatus={teamStatus} data={filteredList()} error={error}>
+            <Content competitionStatus={teamStatus} data={filteredList()} error={error} competition={competition}>
                 <table className="table__section">
                     <thead className="table__head">
                         <tr className="table__label">

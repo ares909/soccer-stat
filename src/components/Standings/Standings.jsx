@@ -16,7 +16,7 @@ function Standings() {
     useEffect(() => {
         if (competitionStatus === "idle") {
             dispatch(getSchedule(competitionId));
-        } else if (competitionStatus === "succeeded" && competitionId !== competition.id.toString()) {
+        } else if (!error && competitionStatus === "succeeded" && competitionId !== competition.id.toString()) {
             dispatch(getSchedule(competitionId));
         }
     }, [dispatch, competitionStatus, competitionId]);
@@ -38,25 +38,27 @@ function Standings() {
                         </tr>
                     </thead>
                     <tbody className="table__body">
-                        {standings.map((team) => (
-                            <tr key={team.team.id}>
-                                <td className="table__text">{team.position}</td>
-                                <td className="table__team">
-                                    {" "}
-                                    <Link className="table__link" to={`/teams/${team.team.id}/matches/`}>
-                                        <img className="table__image" src={team.team.crestUrl} />
-                                    </Link>
-                                    <Link className="table__link" to={`/teams/${team.team.id}/matches/`}>
-                                        {team.team.name}
-                                    </Link>
-                                </td>
-                                <td className="table__text">{team.playedGames}</td>
-                                <td className="table__text">{team.won}</td>
-                                <td className="table__text">{team.draw}</td>
-                                <td className="table__text">{team.lost}</td>
-                                <td className="table__text">{team.points}</td>
-                            </tr>
-                        ))}
+                        {standings !== undefined
+                            ? standings.map((team) => (
+                                  <tr key={team.team.id}>
+                                      <td className="table__text">{team.position}</td>
+                                      <td className="table__team">
+                                          {" "}
+                                          <Link className="table__link" to={`/teams/${team.team.id}/matches/`}>
+                                              <img className="table__image" src={team.team.crestUrl} />
+                                          </Link>
+                                          <Link className="table__link" to={`/teams/${team.team.id}/matches/`}>
+                                              {team.team.name}
+                                          </Link>
+                                      </td>
+                                      <td className="table__text">{team.playedGames}</td>
+                                      <td className="table__text">{team.won}</td>
+                                      <td className="table__text">{team.draw}</td>
+                                      <td className="table__text">{team.lost}</td>
+                                      <td className="table__text">{team.points}</td>
+                                  </tr>
+                              ))
+                            : error}
                     </tbody>
                 </table>
             </Content>

@@ -21,7 +21,7 @@ function Matches() {
             dispatch(
                 fetchMatches({ competitionId: params.competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }),
             );
-        } else if (competitionStatus === "succeeded" && params.competitionId !== competition.id.toString()) {
+        } else if (!error && competitionStatus === "succeeded" && params.competitionId !== competition.id.toString()) {
             dispatch(
                 fetchMatches({ competitionId: params.competitionId, dateFrom: filter.dateFrom, dateTo: filter.dateTo }),
             );

@@ -25,7 +25,7 @@ function CompList() {
     }, [competitionStatus, dispatch]);
 
     useEffect(() => {
-        if (filtered !== "" || filtered !== undefined) {
+        if (filtered !== "" && filtered !== undefined) {
             const filteredList = competitions.filter((competition) =>
                 competition.name.toLowerCase().includes(filter.toLowerCase()),
             );
@@ -43,10 +43,16 @@ function CompList() {
     };
 
     const filteredList = () => {
+        let data;
         if (filteredData) {
-            return filteredData;
+            data = filteredData;
+        } else if (competitions !== undefined) {
+            data = competitions;
+        } else {
+            data = error;
         }
-        return competitions;
+
+        return data;
     };
 
     return (

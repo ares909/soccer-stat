@@ -1,11 +1,5 @@
 import axios from "axios";
-
-export const onError = (res) => {
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(new Error("Произошла ошибка"));
-};
+import errorMessages from "../components/UI/error/errorMessages";
 
 const BASE_URL = "http://api.football-data.org/v2/";
 const headers = {
@@ -22,7 +16,7 @@ export const getCompetitions = async (plan = "TIER_ONE") => {
         });
         return response.data;
     } catch (error) {
-        return new Error("Произошла ошибка");
+        return new Error(errorMessages.noResponse);
     }
 };
 
@@ -33,7 +27,7 @@ export const getCompetition = async (competitionId) => {
         });
         return response.data;
     } catch (error) {
-        return new Error("Произошла ошибка");
+        return new Error(errorMessages.noResponse);
     }
 };
 
@@ -44,7 +38,7 @@ export const getSchedule = async (competitionId) => {
         });
         return response.data;
     } catch (error) {
-        return new Error("Произошла ошибка");
+        return new Error(errorMessages.noResponse);
     }
 };
 
@@ -55,7 +49,7 @@ export const getTeams = async (competitionId) => {
         });
         return response.data;
     } catch (error) {
-        return new Error("Произошла ошибка");
+        return new Error(errorMessages.noResponse);
     }
 };
 
@@ -70,7 +64,7 @@ export const getMatches = async ({ competitionId, dateFrom, dateTo }) => {
         });
         return response.data;
     } catch (error) {
-        return new Error("Произошла ошибка");
+        return new Error(errorMessages.noResponse);
     }
 };
 
@@ -86,6 +80,6 @@ export const getTeamMatches = async ({ teamId, dateFrom, dateTo, limit }) => {
         });
         return response.data;
     } catch (error) {
-        return new Error("Произошла ошибка");
+        return new Error(errorMessages.noResponse);
     }
 };

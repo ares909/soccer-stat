@@ -5,7 +5,7 @@ const initialState = {
     standings: [],
     competition: {},
     status: "idle",
-    error: null,
+    error: "",
 };
 
 export const getSchedule = createAsyncThunk("standings/standingsSlice", async (competitionId) => {
@@ -22,10 +22,12 @@ export const standingsSlice = createSlice({
         },
         [getSchedule.fulfilled]: (state, action) => {
             state.status = "succeeded";
-            const filteredStandings = action.payload.standings.map((standing) => standing.table);
-
+            const filteredStandings = action.payload.standings
+                ? action.payload.standings.map((standing) => standing.table)
+                : [];
             state.standings = filteredStandings.shift();
             state.competition = action.payload.competition;
+            state.error = action.payload.message;
         },
         [getSchedule.rejected]: (state, action) => {
             state.status = "failed";
