@@ -1,7 +1,7 @@
 import axios from "axios";
 import errorMessages from "../components/UI/error/errorMessages";
 
-const BASE_URL = "http://api.football-data.org/v2/";
+const BASE_URL = "https://api.football-data.org/v2/";
 const headers = {
     "X-Auth-Token": process.env.REACT_APP_API_TOKEN,
 };
