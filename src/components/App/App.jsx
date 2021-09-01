@@ -8,8 +8,9 @@ import TeamList from "../TeamList/TeamList.jsx";
 import Footer from "../Footer/Footer.jsx";
 
 function App() {
+    const url = process.env.REACT_APP_PUBLIC_URL || "http://localhost:3000";
     return (
-        <Router>
+        <Router basename={url}>
             <div className="App">
                 <Switch>
                     <Route exact path="/:filtered?" render={() => <CompList />} />
