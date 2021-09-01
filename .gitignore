@@ -25,6 +25,7 @@ yarn-error.log*
 # env
 .env
 
+
 # cfg
-**/prettierrc
-**/eslintrc
+**/prettierrc.js
+**/eslintrc.json
