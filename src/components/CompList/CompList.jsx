@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Comptetition from "../Competition/Competition.jsx";
 import { fetchCompetitions } from "../../store/slices/competitionsSlice";
-import SearchBar from "../SearchBar/SearchBar.jsx";
+import SearchBar from "../UI/searchbar/SearchBar.jsx";
 import Header from "../Header/Header.jsx";
 
 import Content from "../UI/content/Content.jsx";

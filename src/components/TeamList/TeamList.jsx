@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTeams } from "../../store/slices/teamsSlice";
-import SearchBar from "../SearchBar/SearchBar.jsx";
+import SearchBar from "../UI/searchbar/SearchBar.jsx";
 import Header from "../Header/Header.jsx";
 import Content from "../UI/content/Content.jsx";
 

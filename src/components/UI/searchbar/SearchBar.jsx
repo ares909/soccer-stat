@@ -1,6 +1,6 @@
 import React from "react";
-import Input from "../UI/input/Input.jsx";
-import Button from "../UI/button/Button.jsx";
+import Input from "../input/Input.jsx";
+import Button from "../button/Button.jsx";
 
 function SearchBar({ filter, setFilter, getFilteredList }) {
     return (

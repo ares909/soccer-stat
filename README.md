@@ -11,6 +11,7 @@ https://ares909.github.io/soccer-stat
 * React
 * Redux
 * axios
+* SCSS
 * API - https://www.football-data.org/
 
 # Доступные страницы # 

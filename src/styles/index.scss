@@ -3,11 +3,12 @@
 @import "../components/App/App.scss";
 @import "../components/CompList/CompList.scss";
 @import "../components/Header/Header.scss";
-@import "../components/SearchBar/SearchBar.scss";
+@import "../components/UI/searchbar/SearchBar.scss";
 @import "../components/UI/navbar/Navbar.scss";
 @import "../components/UI/table/table.scss";
 @import "../components/UI/table/table-mobile.scss";
-@import "../components/UI/DatePicker/DatePicker.scss";
+@import "../components/UI/date-picker/DatePicker.scss";
 @import "../components/UI/error/Error.scss";
 @import "../components/UI/content/Content.scss";
 @import "../components/Footer/Footer.scss";
+@import "../components//NotFound/NotFound.scss"
